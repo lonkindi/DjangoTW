@@ -35,7 +35,6 @@ class GetAnketView(ListAPIView):
     Класс для выдачи анкет
     """
     def get(self, request, *args, **kwargs):
-        return JsonResponse({'username': str(request.headers)}, status=403)
         if not request.user.is_authenticated:
             return JsonResponse({'Status': False, 'Error': 'Требуется авторизация!'}, status=403)
         state_param = request.query_params.get('state')
@@ -67,7 +66,7 @@ class PutAnketView(APIView):
         state_item = request.query_params.get('state')
         if (id_item is not None) and (state_item is not None):
             Anket.objects.filter(external_id=id_item).update(state=state_item)
-            return JsonResponse({'Status': True, 'Error': '1'}, status=200)
+            return JsonResponse({'Status': True, 'Error': 'None'}, status=200)
         else:
             return JsonResponse({'Status': False, 'Error': 'Необходима авторизация'}, status=500)
         # print('json_body = ', items[0].content[2])
